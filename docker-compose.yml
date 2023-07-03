@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "8080:5173"
+    depends_on:
+      - api
+  api:
+    build: ./api
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb+srv://user:1234@cluster0.xmyrnzi.mongodb.net/TODOAPP?retryWrites=true&w=majority
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
